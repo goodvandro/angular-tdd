@@ -113,7 +113,7 @@ describe('SignUpComponent', () => {
       expect(button?.disabled).toBeFalsy();
     });
 
-    it('sends username, email and password to backend after clicking button submit', () => {
+    it('sends username, email and password to backend after clicking button', () => {
       const spy = spyOn(window, 'fetch');
 
       const signUp = fixture.nativeElement as HTMLInputElement;
