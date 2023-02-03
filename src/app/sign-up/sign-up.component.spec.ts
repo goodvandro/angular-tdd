@@ -51,5 +51,13 @@ describe('SignUpComponent', () => {
       expect(label).toBeTruthy();
       expect(label?.textContent).toContain('Password');
     });
+
+    it('has password type for password input', () => {
+      const signUp = fixture.nativeElement as HTMLInputElement;
+      const input = signUp.querySelector(
+        'input[id="password"]'
+      ) as HTMLInputElement;
+      expect(input.type).toBe('password');
+    });
   });
 });
