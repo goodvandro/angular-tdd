@@ -82,5 +82,11 @@ describe('SignUpComponent', () => {
       const button = signUp.querySelector('button');
       expect(button?.textContent).toBe('Sign Up');
     });
+
+    it('disable the button initially', () => {
+      const signUp = fixture.nativeElement as HTMLElement;
+      const button = signUp.querySelector('button');
+      expect(button?.disabled).toBeTruthy();
+    });
   });
 });
