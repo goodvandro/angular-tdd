@@ -59,5 +59,22 @@ describe('SignUpComponent', () => {
       ) as HTMLInputElement;
       expect(input.type).toBe('password');
     });
+
+    it('has password repeat input', () => {
+      const signUp = fixture.nativeElement as HTMLInputElement;
+      const label = signUp.querySelector('label[for="passwordRepeat"]');
+      const input = signUp.querySelector('input[id="passwordRepeat"]');
+      expect(input).toBeTruthy();
+      expect(label).toBeTruthy();
+      expect(label?.textContent).toContain('Password Repeat');
+    });
+
+    it('has password type for password repeat input', () => {
+      const signUp = fixture.nativeElement as HTMLInputElement;
+      const input = signUp.querySelector(
+        'input[id="passwordRepeat"]'
+      ) as HTMLInputElement;
+      expect(input.type).toBe('password');
+    });
   });
 });
