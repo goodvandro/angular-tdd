@@ -89,4 +89,27 @@ describe('SignUpComponent', () => {
       expect(button?.disabled).toBeTruthy();
     });
   });
+
+  describe('Interaction', () => {
+    it('enables the button whe the password and password fields have the some values', () => {
+      const signUp = fixture.nativeElement as HTMLInputElement;
+      const passwordInput = signUp.querySelector(
+        'input[id="password"]'
+      ) as HTMLInputElement;
+      const passwordRepeatInput = signUp.querySelector(
+        'input[id="passwordRepeat"]'
+      ) as HTMLInputElement;
+
+      passwordInput.value = 'P4ssword';
+      passwordInput.dispatchEvent(new Event('input'));
+
+      passwordRepeatInput.value = 'P4ssword';
+      passwordRepeatInput.dispatchEvent(new Event('input'));
+
+      fixture.detectChanges();
+
+      const button = signUp.querySelector('button');
+      expect(button?.disabled).toBeFalsy();
+    });
+  });
 });
