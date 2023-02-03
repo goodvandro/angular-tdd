@@ -18,9 +18,23 @@ describe('SignUpComponent', () => {
     fixture.detectChanges();
   });
 
-  it('has Sign Up Header', () => {
-    const signUp = fixture.nativeElement as HTMLElement;
-    const h1 = signUp.querySelector('h1');
-    expect(h1?.textContent).toBe('Sign Up');
+  describe('Layout', () => {
+    it('has Sign Up Header', () => {
+      const signUp = fixture.nativeElement as HTMLElement;
+      const h1 = signUp.querySelector('h1');
+      expect(h1?.textContent).toBe('Sign Up');
+    });
+
+    it('has username input', () => {
+      const signUp = fixture.nativeElement as HTMLInputElement;
+      const input = signUp.querySelector('input');
+      expect(input).toBeTruthy();
+    });
+
+    it('has email input', () => {
+      const signUp = fixture.nativeElement as HTMLInputElement;
+      const input = signUp.querySelectorAll('input');
+      expect(input.length).toBe(2);
+    });
   });
 });
