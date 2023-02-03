@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sign-up.component.css'],
 })
 export class SignUpComponent implements OnInit {
-  disabled = true;
   password = '';
   passwordRepeat = '';
 
@@ -16,11 +15,13 @@ export class SignUpComponent implements OnInit {
 
   onChangePassword(event: Event) {
     this.password = (event.target as HTMLInputElement).value;
-    this.disabled = this.password !== this.passwordRepeat;
   }
 
   onChangePasswordRepeat(event: Event) {
     this.passwordRepeat = (event.target as HTMLInputElement).value;
-    this.disabled = this.password !== this.passwordRepeat;
+  }
+
+  isDisabled(): boolean {
+    return this.password ? this.password !== this.passwordRepeat : true;
   }
 }
