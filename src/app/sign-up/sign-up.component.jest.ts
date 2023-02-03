@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/angular';
 import { SignUpComponent } from './sign-up.component';
+import userEvent from '@testing-library/user-event';
 
 describe('SignUpComponent', () => {
   describe('Layout', () => {
@@ -51,6 +52,21 @@ describe('SignUpComponent', () => {
       await render(SignUpComponent);
       const button = screen.getByRole('button', { name: 'Sign Up' });
       expect(button).toBeDisabled();
+    });
+  });
+
+  describe('Interaction', () => {
+    it('enables the button whe the password and password fields have the some values', async () => {
+      await render(SignUpComponent);
+
+      const password = screen.getByLabelText('Password');
+      const passwordRepeat = screen.getByLabelText('Password Repeat');
+
+      await userEvent.type(password, 'p4ssword');
+      await userEvent.type(passwordRepeat, 'p4ssword');
+
+      const button = screen.getByRole('button', { name: 'Sign Up' });
+      expect(button).toBeEnabled();
     });
   });
 });
