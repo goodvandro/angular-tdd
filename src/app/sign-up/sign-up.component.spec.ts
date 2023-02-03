@@ -27,14 +27,29 @@ describe('SignUpComponent', () => {
 
     it('has username input', () => {
       const signUp = fixture.nativeElement as HTMLInputElement;
-      const input = signUp.querySelector('input[placeholder="Username"]');
+      const label = signUp.querySelector('label[for="username"]');
+      const input = signUp.querySelector('input[id="username"]');
       expect(input).toBeTruthy();
+      expect(label).toBeTruthy();
+      expect(label?.textContent).toContain('Username');
     });
 
     it('has email input', () => {
       const signUp = fixture.nativeElement as HTMLInputElement;
-      const input = signUp.querySelector('input[placeholder="E-mail"]');
+      const label = signUp.querySelector('label[for="email"]');
+      const input = signUp.querySelector('input[id="email"]');
       expect(input).toBeTruthy();
+      expect(label).toBeTruthy();
+      expect(label?.textContent).toContain('E-mail');
+    });
+
+    it('has password input', () => {
+      const signUp = fixture.nativeElement as HTMLInputElement;
+      const label = signUp.querySelector('label[for="password"]');
+      const input = signUp.querySelector('input[id="password"]');
+      expect(input).toBeTruthy();
+      expect(label).toBeTruthy();
+      expect(label?.textContent).toContain('Password');
     });
   });
 });
