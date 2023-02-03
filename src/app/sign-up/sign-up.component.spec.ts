@@ -76,5 +76,11 @@ describe('SignUpComponent', () => {
       ) as HTMLInputElement;
       expect(input.type).toBe('password');
     });
+
+    it('has Sign Up button', () => {
+      const signUp = fixture.nativeElement as HTMLElement;
+      const button = signUp.querySelector('button');
+      expect(button?.textContent).toBe('Sign Up');
+    });
   });
 });
