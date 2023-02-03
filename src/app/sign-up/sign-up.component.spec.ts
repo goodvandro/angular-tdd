@@ -27,14 +27,14 @@ describe('SignUpComponent', () => {
 
     it('has username input', () => {
       const signUp = fixture.nativeElement as HTMLInputElement;
-      const input = signUp.querySelector('input');
+      const input = signUp.querySelector('input[placeholder="Username"]');
       expect(input).toBeTruthy();
     });
 
     it('has email input', () => {
       const signUp = fixture.nativeElement as HTMLInputElement;
-      const input = signUp.querySelectorAll('input');
-      expect(input.length).toBe(2);
+      const input = signUp.querySelector('input[placeholder="E-mail"]');
+      expect(input).toBeTruthy();
     });
   });
 });
