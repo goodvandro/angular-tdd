@@ -85,7 +85,7 @@ describe('SignUpComponent', () => {
     it('has Sign Up button', () => {
       const signUp = fixture.nativeElement as HTMLElement;
       const button = signUp.querySelector('button');
-      expect(button?.textContent).toBe('Sign Up');
+      expect(button?.textContent).toContain('Sign Up');
     });
 
     it('disable the button initially', () => {
@@ -96,32 +96,14 @@ describe('SignUpComponent', () => {
   });
 
   describe('Interaction', () => {
-    it('enables the button whe the password and password fields have the some values', () => {
-      const signUp = fixture.nativeElement as HTMLInputElement;
+    let button: any;
+    let httpTestingController: HttpTestingController;
+    let signUp: HTMLInputElement;
 
-      const passwordInput = signUp.querySelector(
-        'input[id="password"]'
-      ) as HTMLInputElement;
-      const passwordRepeatInput = signUp.querySelector(
-        'input[id="passwordRepeat"]'
-      ) as HTMLInputElement;
+    const setupForm = () => {
+      httpTestingController = TestBed.inject(HttpTestingController);
 
-      passwordInput.value = 'P4ssword';
-      passwordInput.dispatchEvent(new Event('input'));
-
-      passwordRepeatInput.value = 'P4ssword';
-      passwordRepeatInput.dispatchEvent(new Event('input'));
-
-      fixture.detectChanges();
-
-      const button = signUp.querySelector('button');
-      expect(button?.disabled).toBeFalsy();
-    });
-
-    it('sends username, email and password to backend after clicking button', () => {
-      let httpTestingController = TestBed.inject(HttpTestingController);
-
-      const signUp = fixture.nativeElement as HTMLInputElement;
+      signUp = fixture.nativeElement as HTMLInputElement;
 
       const usernameInput = signUp.querySelector(
         'input[id="username"]'
@@ -150,7 +132,16 @@ describe('SignUpComponent', () => {
 
       fixture.detectChanges();
 
-      const button = signUp.querySelector('button');
+      button = signUp.querySelector('button');
+    };
+
+    it('enables the button whe the password and password fields have the some values', () => {
+      setupForm();
+      expect(button?.disabled).toBeFalsy();
+    });
+
+    it('sends username, email and password to backend after clicking button', () => {
+      setupForm();
       button?.click();
 
       const req = httpTestingController.expectOne('/api/1.0/users');
@@ -161,6 +152,23 @@ describe('SignUpComponent', () => {
         password: 'P4ssword',
         email: 'user1@mail.com',
       });
+    });
+
+    it('disables button when there is an ongoing api call', () => {
+      setupForm();
+      button?.click();
+      fixture.detectChanges();
+
+      httpTestingController.expectOne('/api/1.0/users');
+      expect(button?.disabled).toBeTruthy();
+    });
+
+    it('display spinner after clicking the submit', () => {
+      setupForm();
+      expect(signUp.querySelector('span[role="status"]')).toBeFalsy();
+      button?.click();
+      fixture.detectChanges();
+      expect(signUp.querySelector('span[role="status"]')).toBeTruthy();
     });
   });
 });
