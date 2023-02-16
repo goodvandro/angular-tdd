@@ -170,5 +170,36 @@ describe('SignUpComponent', () => {
       fixture.detectChanges();
       expect(signUp.querySelector('span[role="status"]')).toBeTruthy();
     });
+
+    it('display account activation notification after successful sign up request', () => {
+      setupForm();
+      expect(signUp.querySelector('.alert-success')).toBeFalsy();
+
+      button?.click();
+      const req = httpTestingController.expectOne('/api/1.0/users');
+      req.flush({});
+      fixture.detectChanges();
+
+      const message = signUp.querySelector('.alert-success');
+      expect(message?.textContent).toContain(
+        'Please check your email to activate your account'
+      );
+    });
+
+    it('hides sign up form after successful sign up request', () => {
+      setupForm();
+      expect(
+        signUp.querySelector('div[data-test-id="form-sign-up"]')
+      ).toBeTruthy();
+
+      button?.click();
+      const req = httpTestingController.expectOne('/api/1.0/users');
+      req.flush({});
+      fixture.detectChanges();
+
+      expect(
+        signUp.querySelector('div[data-test-id="form-sign-up"]')
+      ).toBeFalsy();
+    });
   });
 });
