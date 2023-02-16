@@ -6,13 +6,19 @@ import { setupServer } from 'msw/node';
 import { HttpClientModule } from '@angular/common/http';
 
 let requestBody: any;
+let counter = 0;
 
 const server = setupServer(
   rest.post('/api/1.0/users', (req, res, ctx) => {
     requestBody = req.body;
+    counter += 1;
     return res(ctx.status(200), ctx.json({}));
   })
 );
+
+beforeEach(() => {
+  counter = 0;
+});
 
 beforeAll(() => server.listen());
 afterAll(() => server.close());
@@ -75,20 +81,9 @@ describe('SignUpComponent', () => {
   });
 
   describe('Interaction', () => {
-    it('enables the button whe the password and password fields have the some values', async () => {
-      await setup();
+    let button: any;
 
-      const password = screen.getByLabelText('Password');
-      const passwordRepeat = screen.getByLabelText('Password Repeat');
-
-      await userEvent.type(password, 'p4ssword');
-      await userEvent.type(passwordRepeat, 'p4ssword');
-
-      const button = screen.getByRole('button', { name: 'Sign Up' });
-      expect(button).toBeEnabled();
-    });
-
-    it('sends username, email and password to backend after clicking button', async () => {
+    const setupForm = async () => {
       await setup();
 
       const username = screen.getByLabelText('Username');
@@ -101,8 +96,15 @@ describe('SignUpComponent', () => {
       await userEvent.type(password, 'P4ssword');
       await userEvent.type(passwordRepeat, 'P4ssword');
 
-      const button = screen.getByRole('button', { name: 'Sign Up' });
+      button = screen.getByRole('button', { name: 'Sign Up' });
+    };
+    it('enables the button whe the password and password fields have the some values', async () => {
+      await setupForm();
+      expect(button).toBeEnabled();
+    });
 
+    it('sends username, email and password to backend after clicking button', async () => {
+      await setupForm();
       await userEvent.click(button);
 
       await waitFor(() => {
@@ -112,6 +114,22 @@ describe('SignUpComponent', () => {
           email: 'user1@mail.com',
         });
       });
+    });
+
+    it('disables button when there is an ongoing api call', async () => {
+      await setupForm();
+      await userEvent.click(button);
+      await userEvent.click(button);
+      await waitFor(() => {
+        expect(counter).toBe(1);
+      });
+    });
+
+    it('display spinner after clicking the submit', async () => {
+      await setupForm();
+      expect(screen.queryByRole('status')).not.toBeInTheDocument();
+      await userEvent.click(button);
+      expect(screen.queryByRole('status')).toBeInTheDocument();
     });
   });
 });
