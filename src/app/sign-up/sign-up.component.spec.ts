@@ -189,7 +189,7 @@ describe('SignUpComponent', () => {
     it('hides sign up form after successful sign up request', () => {
       setupForm();
       expect(
-        signUp.querySelector('div[data-test-id="form-sign-up"]')
+        signUp.querySelector('div[data-testid="form-sign-up"]')
       ).toBeTruthy();
 
       button?.click();
@@ -198,7 +198,7 @@ describe('SignUpComponent', () => {
       fixture.detectChanges();
 
       expect(
-        signUp.querySelector('div[data-test-id="form-sign-up"]')
+        signUp.querySelector('div[data-testid="form-sign-up"]')
       ).toBeFalsy();
     });
   });
