@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../core/user.service';
 
 @Component({
@@ -9,11 +9,14 @@ import { UserService } from '../core/user.service';
 })
 export class SignUpComponent implements OnInit {
   form = new FormGroup({
-    username: new FormControl(''),
+    username: new FormControl('', [
+      Validators.required,
+      Validators.minLength(4),
+    ]),
     email: new FormControl(''),
     password: new FormControl(''),
     passwordRepeat: new FormControl(''),
-  })
+  });
 
   apiProgress = false;
   signUpSuccess = false;
@@ -23,7 +26,10 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {}
 
   isDisabled(): boolean {
-    return this.form.get('password')?.value ? this.form.get('password')?.value !== this.form.get('passwordRepeat')?.value : true;
+    return this.form.get('password')?.value
+      ? this.form.get('password')?.value !==
+          this.form.get('passwordRepeat')?.value
+      : true;
   }
 
   onClickSignUp() {
