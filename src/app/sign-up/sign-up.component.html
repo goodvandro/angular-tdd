@@ -26,7 +26,19 @@
 
       <div class="mb-3">
         <label for="email" class="form-label">E-mail</label>
-        <input id="email" class="form-control" formControlName="email" />
+        <input
+          id="email"
+          class="form-control"
+          formControlName="email"
+          [class.is-invalid]="emailError"
+        />
+        <div
+          data-testid="email-validation"
+          class="invalid-feedback"
+          *ngIf="emailError"
+        >
+          {{ emailError }}
+        </div>
       </div>
 
       <div class="mb-3">
@@ -35,8 +47,16 @@
           type="password"
           id="password"
           class="form-control"
+          [class.is-invalid]="passwordError"
           formControlName="password"
         />
+        <div
+          data-testid="password-validation"
+          class="invalid-feedback"
+          *ngIf="passwordError"
+        >
+          {{ passwordError }}
+        </div>
       </div>
 
       <div class="mb-3">

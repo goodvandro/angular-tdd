@@ -215,6 +215,8 @@ describe('SignUpComponent', () => {
         value: '123',
         error: 'Username must be at least 4 characters',
       },
+      { field: 'email', value: '', error: 'E-mail is required' },
+      { field: 'password', value: '', error: 'Password is required' },
     ];
 
     testCases.forEach(({ field, value, error }) => {
