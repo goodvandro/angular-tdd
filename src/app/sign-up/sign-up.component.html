@@ -9,20 +9,18 @@
     <form class="card-body" (ngSubmit)="onClickSignUp()" [formGroup]="form">
       <div class="mb-3">
         <label for="username" class="form-label">Username</label>
-        <input id="username" class="form-control" formControlName="username" />
+        <input
+          id="username"
+          class="form-control"
+          [class.is-invalid]="usernameError"
+          formControlName="username"
+        />
         <div
           data-testid="username-validation"
-          *ngIf="
-            form.get('username')?.errors &&
-            (form.get('username')?.touched || form.get('username')?.dirty)
-          "
+          class="invalid-feedback"
+          *ngIf="usernameError"
         >
-          <div *ngIf="form.get('username')?.errors?.['required']">
-            Username is required
-          </div>
-          <div *ngIf="form.get('username')?.errors?.['minlength']">
-            Username must be at least 4 characters
-          </div>
+          {{ usernameError }}
         </div>
       </div>
 
