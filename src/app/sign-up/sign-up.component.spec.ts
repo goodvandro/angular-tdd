@@ -216,7 +216,36 @@ describe('SignUpComponent', () => {
         error: 'Username must be at least 4 characters',
       },
       { field: 'email', value: '', error: 'E-mail is required' },
+      {
+        field: 'email',
+        value: 'wrong-format',
+        error: 'Invalid e-mail address',
+      },
       { field: 'password', value: '', error: 'Password is required' },
+      {
+        field: 'password',
+        value: 'password',
+        error:
+          'Password must have at lest 1 uppercase, 1 lowercase letter and 1 number',
+      },
+      {
+        field: 'password',
+        value: 'passWORD',
+        error:
+          'Password must have at lest 1 uppercase, 1 lowercase letter and 1 number',
+      },
+      {
+        field: 'password',
+        value: 'pass1234',
+        error:
+          'Password must have at lest 1 uppercase, 1 lowercase letter and 1 number',
+      },
+      {
+        field: 'password',
+        value: 'PASS1234',
+        error:
+          'Password must have at lest 1 uppercase, 1 lowercase letter and 1 number',
+      },
     ];
 
     testCases.forEach(({ field, value, error }) => {
