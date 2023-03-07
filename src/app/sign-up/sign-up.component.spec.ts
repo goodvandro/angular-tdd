@@ -209,13 +209,21 @@ describe('SignUpComponent', () => {
 
   describe('Validations', () => {
     const testCases = [
-      { field: 'username', value: '', error: 'Username is required' },
+      {
+        field: 'username',
+        value: '',
+        error: 'Username is required',
+      },
       {
         field: 'username',
         value: '123',
         error: 'Username must be at least 4 characters',
       },
-      { field: 'email', value: '', error: 'E-mail is required' },
+      {
+        field: 'email',
+        value: '',
+        error: 'E-mail is required',
+      },
       {
         field: 'email',
         value: 'wrong-format',
@@ -241,10 +249,9 @@ describe('SignUpComponent', () => {
           'Password must have at lest 1 uppercase, 1 lowercase letter and 1 number',
       },
       {
-        field: 'password',
-        value: 'PASS1234',
-        error:
-          'Password must have at lest 1 uppercase, 1 lowercase letter and 1 number',
+        field: 'passwordRepeat',
+        value: 'pass',
+        error: 'Password mismatch',
       },
     ];
 

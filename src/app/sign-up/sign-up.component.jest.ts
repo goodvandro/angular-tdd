@@ -161,15 +161,16 @@ describe('SignUpComponent', () => {
 
   describe('Validation', () => {
     it.each`
-      label         | inputValue              | message
-      ${'Username'} | ${'123'}                | ${'Username must be at least 4 characters'}
-      ${'E-mail'}   | ${'{space}{backspace}'} | ${'E-mail is required'}
-      ${'E-mail'}   | ${'wrong-format'}       | ${'Invalid e-mail address'}
-      ${'Password'} | ${'{space}{backspace}'} | ${'Password is required'}
-      ${'Password'} | ${'password'}           | ${'Password must have at lest 1 uppercase, 1 lowercase letter and 1 number'}
-      ${'Password'} | ${'passWORD'}           | ${'Password must have at lest 1 uppercase, 1 lowercase letter and 1 number'}
-      ${'Password'} | ${'pass1234'}           | ${'Password must have at lest 1 uppercase, 1 lowercase letter and 1 number'}
-      ${'Password'} | ${'PASS1234'}           | ${'Password must have at lest 1 uppercase, 1 lowercase letter and 1 number'}
+      label                | inputValue              | message
+      ${'Username'}        | ${'123'}                | ${'Username must be at least 4 characters'}
+      ${'E-mail'}          | ${'{space}{backspace}'} | ${'E-mail is required'}
+      ${'E-mail'}          | ${'wrong-format'}       | ${'Invalid e-mail address'}
+      ${'Password'}        | ${'{space}{backspace}'} | ${'Password is required'}
+      ${'Password'}        | ${'password'}           | ${'Password must have at lest 1 uppercase, 1 lowercase letter and 1 number'}
+      ${'Password'}        | ${'passWORD'}           | ${'Password must have at lest 1 uppercase, 1 lowercase letter and 1 number'}
+      ${'Password'}        | ${'pass1234'}           | ${'Password must have at lest 1 uppercase, 1 lowercase letter and 1 number'}
+      ${'Password'}        | ${'PASS1234'}           | ${'Password must have at lest 1 uppercase, 1 lowercase letter and 1 number'}
+      ${'Password Repeat'} | ${'pass'}               | ${'Password mismatch'}
     `(
       'displays $message when $label has the value "$inputValue"',
       async ({ label, inputValue, message }) => {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../core/user.service';
+import { passwordMatchValidator } from './password-match.validator';
 
 @Component({
   selector: 'app-sign-up',
@@ -8,18 +9,23 @@ import { UserService } from '../core/user.service';
   styleUrls: ['./sign-up.component.css'],
 })
 export class SignUpComponent implements OnInit {
-  form = new FormGroup({
-    username: new FormControl('', [
-      Validators.required,
-      Validators.minLength(4),
-    ]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/),
-    ]),
-    passwordRepeat: new FormControl(''),
-  });
+  form = new FormGroup(
+    {
+      username: new FormControl('', [
+        Validators.required,
+        Validators.minLength(4),
+      ]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/),
+      ]),
+      passwordRepeat: new FormControl(''),
+    },
+    {
+      validators: passwordMatchValidator,
+    }
+  );
 
   apiProgress = false;
   signUpSuccess = false;
@@ -59,6 +65,15 @@ export class SignUpComponent implements OnInit {
         return 'Password is required';
       } else if (field.errors['pattern']) {
         return 'Password must have at lest 1 uppercase, 1 lowercase letter and 1 number';
+      }
+    }
+    return;
+  }
+
+  get passwordRepeatError() {
+    if (this.form?.errors && (this.form?.touched || this.form?.dirty)) {
+      if (this.form?.errors['passwordMatch']) {
+        return 'Password mismatch';
       }
     }
     return;

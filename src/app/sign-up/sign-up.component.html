@@ -65,8 +65,16 @@
           type="password"
           id="passwordRepeat"
           class="form-control"
+          [class.is-invalid]="passwordRepeatError"
           formControlName="passwordRepeat"
         />
+        <div
+          data-testid="passwordRepeat-validation"
+          class="invalid-feedback"
+          *ngIf="passwordRepeatError"
+        >
+          {{ passwordRepeatError }}
+        </div>
       </div>
 
       <div class="text-center">
