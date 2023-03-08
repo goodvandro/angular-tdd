@@ -127,6 +127,7 @@ describe('SignUpComponent', () => {
 
       emailInput.value = 'user1@mail.com';
       emailInput.dispatchEvent(new Event('input'));
+      emailInput.dispatchEvent(new Event('blur'));
 
       passwordInput.value = 'P4ssword';
       passwordInput.dispatchEvent(new Event('input'));
@@ -274,6 +275,37 @@ describe('SignUpComponent', () => {
           `div[data-testid="${field}-validation"]`
         );
         expect(validationElement?.textContent).toContain(error);
+      });
+
+      it(`displays E-mail in use when email is not unique`, () => {
+        let httpTestingController = TestBed.inject(HttpTestingController);
+
+        const signUp = fixture.nativeElement as HTMLElement;
+        expect(
+          signUp.querySelector(`div[data-testid="email-validation"]`)
+        ).toBeNull();
+
+        const input = signUp.querySelector(
+          `input[id=email]`
+        ) as HTMLInputElement;
+        input.value = 'non-unique-email@mail.com';
+        input.dispatchEvent(new Event('input'));
+        input.dispatchEvent(new Event('blur'));
+        const request = httpTestingController.expectOne(
+          ({ url, method, body }) => {
+            if (url === '/api/1.0/user/email' && method === 'POST') {
+              return body.email === 'non-unique-email@mail.com';
+            }
+            return false;
+          }
+        );
+        request.flush({});
+        fixture.detectChanges();
+
+        const validationElement = signUp.querySelector(
+          `div[data-testid="email-validation"]`
+        );
+        expect(validationElement?.textContent).toContain('E-mail in use');
       });
     });
   });
