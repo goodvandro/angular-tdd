@@ -122,7 +122,7 @@ describe('SignUpComponent', () => {
 
       button = screen.getByRole('button', { name: 'Sign Up' });
     };
-    it('enables the button whe the password and password fields have the some values', async () => {
+    it('enables the button when all fields have valid input', async () => {
       await setupForm();
       expect(button).toBeEnabled();
     });

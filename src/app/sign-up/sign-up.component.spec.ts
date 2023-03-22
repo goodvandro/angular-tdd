@@ -140,7 +140,7 @@ describe('SignUpComponent', () => {
       button = signUp.querySelector('button');
     };
 
-    it('enables the button whe the password and password fields have the some values', async () => {
+    it('enables the button when all the fields have valid input', async () => {
       await setupForm();
       expect(button?.disabled).toBeFalsy();
     });
