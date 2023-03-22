@@ -184,6 +184,13 @@ describe('SignUpComponent', () => {
       );
       expect(form).not.toBeInTheDocument();
     });
+
+    it('hides spinner after sign up request falis', async () => {
+      await setupForm({ email: 'not-unique@mail.com' });
+      await userEvent.click(button);
+      await screen.findByText('E-mail in use');
+      expect(screen.queryByRole('status')).not.toBeInTheDocument();
+    });
   });
 
   describe('Validation', () => {

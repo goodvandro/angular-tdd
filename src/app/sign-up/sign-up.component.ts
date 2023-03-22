@@ -125,6 +125,7 @@ export class SignUpComponent implements OnInit {
         this.form
           .get('email')
           ?.setErrors({ backend: emailValidationErrorMessage });
+        this.apiProgress = false;
       },
     });
   }
