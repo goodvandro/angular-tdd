@@ -18,6 +18,14 @@ const server = setupServer(
   rest.post('/api/1.0/users', (req, res, ctx) => {
     requestBody = req.body;
     counter += 1;
+    if (requestBody.email === 'not-unique@mail.com') {
+      return res(
+        ctx.status(400),
+        ctx.json({
+          validationErrors: { email: 'E-mail in use' },
+        })
+      );
+    }
     return res(ctx.status(200), ctx.json({}));
   }),
   rest.post('/api/1.0/user/email', (req, res, ctx) => {
@@ -32,6 +40,7 @@ const server = setupServer(
 
 beforeEach(() => {
   counter = 0;
+  server.resetHandlers();
 });
 
 beforeAll(() => server.listen());
@@ -99,16 +108,15 @@ describe('SignUpComponent', () => {
   describe('Interaction', () => {
     let button: any;
 
-    const setupForm = async () => {
+    const setupForm = async (values?: { email: string }) => {
       await setup();
-
       const username = screen.getByLabelText('Username');
       const email = screen.getByLabelText('E-mail');
       const password = screen.getByLabelText('Password');
       const passwordRepeat = screen.getByLabelText('Password Repeat');
 
       await userEvent.type(username, 'user1');
-      await userEvent.type(email, 'user1@mail.com');
+      await userEvent.type(email, values?.email || 'user1@mail.com');
       await userEvent.type(password, 'P4ssword');
       await userEvent.type(passwordRepeat, 'P4ssword');
 
@@ -158,6 +166,13 @@ describe('SignUpComponent', () => {
         'Please check your email to activate your account'
       );
       expect(text).toBeInTheDocument();
+    });
+
+    it('displays validation error coming from backend after submit failure', async () => {
+      await setupForm({ email: 'not-unique@mail.com' });
+      await userEvent.click(button);
+      const errorMessage = await screen.findByText('E-mail in use');
+      expect(errorMessage).toBeInTheDocument();
     });
 
     it('hides sign up form after successful sign up request', async () => {
