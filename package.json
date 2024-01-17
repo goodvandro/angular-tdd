@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test:jest": "jest --watchAll"
+    "test:jest": "jest --watchAll",
+    "lint": "tsc --noEmit && eslint . --ext js,ts,json --quiet --fix"
   },
   "private": true,
   "dependencies": {
@@ -33,6 +34,10 @@
     "@types/jasmine": "~3.10.0",
     "@types/jest": "^27.4.1",
     "@types/node": "^12.11.1",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
     "jasmine-core": "~4.0.0",
     "jest": "^27.5.1",
     "jest-preset-angular": "^11.1.1",
@@ -42,6 +47,8 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
     "msw": "^0.39.2",
+    "prettier": "^3.2.3",
+    "prettier-eslint": "^16.2.0",
     "typescript": "~4.6.2",
     "whatwg-fetch": "^3.6.2"
   },
