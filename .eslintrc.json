@@ -17,7 +17,7 @@
     }
   ],
   "rules": {
-    "@html-eslint/indent": ["error", 4]
+    "@html-eslint/indent": ["error", 2]
     // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
   }
 }
