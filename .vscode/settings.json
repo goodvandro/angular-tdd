@@ -1,4 +1,8 @@
 {
+  // "eslint.enable": true,
+  "eslint.validate": [
+    "html" // Add "html" to enable linting `.html` files.
+  ],
   "[javascript]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",
     "editor.codeActionsOnSave": {
@@ -21,6 +25,11 @@
     "editor.formatOnSave": false
   },
   "[javascript][json][typescript]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    }
+  },
+  "[html][javascript][json][typescript]": {
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": "explicit"
     }
