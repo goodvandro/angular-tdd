@@ -15,6 +15,7 @@ import { SharedModule } from './shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { ActivateComponent } from './activate/activate.component';
+import { UserComponent } from './user/user.component';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -28,6 +29,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         SignUpComponent,
+        UserComponent,
         HomeComponent,
         LoginComponent,
         ActivateComponent
