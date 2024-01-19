@@ -18,7 +18,7 @@
   ],
   "rules": {
     "@html-eslint/indent": ["error", 2],
-    "enforceBeforeSelfClose": true
-    // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
+    "@html-eslint/require-closing-tags":[ "error", { "selfClosing": "always" }],
+    "@html-eslint/no-extra-spacing-attrs": ["error", { "enforceBeforeSelfClose": true }]
   }
 }
