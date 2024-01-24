@@ -9,6 +9,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
 describe('SignUpComponent', () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let component: SignUpComponent;
   let fixture: ComponentFixture<SignUpComponent>;
 
@@ -98,6 +99,7 @@ describe('SignUpComponent', () => {
   });
 
   describe('Interaction', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let button: any;
     let httpTestingController: HttpTestingController;
     let signUp: HTMLInputElement;
@@ -315,7 +317,7 @@ describe('SignUpComponent', () => {
       });
 
       it(`displays E-mail in use when email is not unique`, () => {
-        let httpTestingController = TestBed.inject(HttpTestingController);
+        const httpTestingController = TestBed.inject(HttpTestingController);
 
         const signUp = fixture.nativeElement as HTMLElement;
         expect(
