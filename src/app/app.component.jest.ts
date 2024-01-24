@@ -11,9 +11,32 @@ import { UserComponent } from './user/user.component';
 import { LoginComponent } from './login/login.component';
 import { ActivateComponent } from './activate/activate.component';
 
+import { setupServer } from 'msw/node';
+import { rest } from 'msw';
+
+const server = setupServer(
+  rest.post('/api/1.0/users/token/:token', (req, res, ctx) => {
+    return res(ctx.status(200));
+  })
+);
+
+beforeEach(() => {
+  server.resetHandlers();
+});
+
+beforeAll(() => server.listen());
+
+afterAll(() => server.close());
+
 const setup = async (path: string) => {
   const { navigate } = await render(AppComponent, {
-    declarations: [HomeComponent, SignUpComponent, UserComponent, LoginComponent, ActivateComponent],
+    declarations: [
+      HomeComponent,
+      SignUpComponent,
+      UserComponent,
+      LoginComponent,
+      ActivateComponent,
+    ],
     imports: [HttpClientModule, SharedModule, ReactiveFormsModule],
     routes: routes,
   });
@@ -22,12 +45,12 @@ const setup = async (path: string) => {
 
 describe('Routing', () => {
   it.each`
-    path         | pageId
-    ${'/'}       | ${'home-page'}
-    ${'/signup'} | ${'sign-up-page'}
-    ${'/login'}  | ${'login-page'}
-    ${'/user/1'} | ${'user-page'}
-    ${'/user/2'} | ${'user-page'}
+    path               | pageId
+    ${'/'}             | ${'home-page'}
+    ${'/signup'}       | ${'sign-up-page'}
+    ${'/login'}        | ${'login-page'}
+    ${'/user/1'}       | ${'user-page'}
+    ${'/user/2'}       | ${'user-page'}
     ${'/activate/123'} | ${'activation-page'}
     ${'/activate/456'} | ${'activation-page'}
   `('displays $pageId when path is $path', async ({ path, pageId }) => {
