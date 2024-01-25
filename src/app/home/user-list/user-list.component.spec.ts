@@ -18,6 +18,7 @@ const page = {
 };
 
 describe('UserListComponent', () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let component: UserListComponent;
   let fixture: ComponentFixture<UserListComponent>;
   let httpTestingController: HttpTestingController;
