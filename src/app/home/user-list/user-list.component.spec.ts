@@ -38,10 +38,15 @@ describe('UserListComponent', () => {
   });
 
   it('displays three users in list', () => {
-    const request = httpTestingController.expectOne('/api/1.0/users');
+    const request = httpTestingController.expectOne('/api/1.0/users?size=3');
     request.flush(page);
     fixture.detectChanges();
     const listItems = fixture.nativeElement.querySelectorAll('li');
     expect(listItems.length).toBe(3);
+  });
+
+  it('sends size param as three', () => {
+    const request = httpTestingController.expectOne('/api/1.0/users?size=3');
+    expect(request.request.params.get('size')).toBe(3);
   });
 });
