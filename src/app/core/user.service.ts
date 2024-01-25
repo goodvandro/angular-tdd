@@ -18,4 +18,8 @@ export class UserService {
   activate(token: string) {
     return this.httpClient.post('/api/1.0/users/token/' + token, {});
   }
+
+  loadUsers() {
+    return this.httpClient.get('/api/1.0/users');
+  }
 }

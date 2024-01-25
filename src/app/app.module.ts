@@ -11,9 +11,18 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
 import { ActivateComponent } from './activate/activate.component';
+import { UserListComponent } from './home/user-list/user-list.component';
 
 @NgModule({
-  declarations: [AppComponent, SignUpComponent, HomeComponent, LoginComponent, UserComponent, ActivateComponent],
+  declarations: [
+    AppComponent,
+    SignUpComponent,
+    HomeComponent,
+    LoginComponent,
+    UserComponent,
+    ActivateComponent,
+    UserListComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
