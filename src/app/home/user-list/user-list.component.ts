@@ -17,4 +17,10 @@ export class UserListComponent implements OnInit {
       this.page = responseBody as UserPage;
     });
   }
+
+  loadNextPage() {
+    this.userService.loadUsers(this.page.page + 1).subscribe((responseBody) => {
+      this.page = responseBody as UserPage;
+    });
+  }
 }

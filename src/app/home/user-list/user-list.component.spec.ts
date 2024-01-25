@@ -74,4 +74,22 @@ describe('UserListComponent', () => {
     const request = httpTestingController.expectOne(() => true);
     expect(request.request.params.get('size')).toBe(3);
   });
+
+  it('displays next page button', () => {
+    const request = httpTestingController.expectOne(() => true);
+    request.flush(getPage(0, 3));
+    fixture.detectChanges();
+    const nextPageButton = fixture.nativeElement.querySelector('button');
+    expect(nextPageButton).toBeTruthy();
+  });
+
+  it('request next page after clicking next page button', () => {
+    const request = httpTestingController.expectOne(() => true);
+    request.flush(getPage(0, 3));
+    fixture.detectChanges();
+    const nextPageButton = fixture.nativeElement.querySelector('button');
+    nextPageButton.click();
+    const nextRequest = httpTestingController.expectOne(() => true);
+    expect(nextRequest.request.params.get('page')).toBe(1);
+  });
 });
