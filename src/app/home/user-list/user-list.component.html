@@ -10,5 +10,18 @@
       {{ user.username }}
     </li>
   </ul>
-  <button (click)="loadNextPage()">next &gt;</button>
+  <button
+    *ngIf="hasPreviousPage"
+    (click)="loadData(page.page - 1)"
+    data-testid="previous-button"
+  >
+    &lt; previous
+  </button>
+  <button
+    *ngIf="hasNextPage"
+    (click)="loadData(page.page + 1)"
+    data-testid="next-button"
+  >
+    next &gt;
+  </button>
 </div>
