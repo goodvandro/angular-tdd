@@ -7,7 +7,7 @@ import {
   TestRequest,
 } from '@angular/common/http/testing';
 
-const getPage = (page: number, size: number) => {
+export const getPage = (page: number, size: number) => {
   const start = page * size;
   const end = start + size;
 
