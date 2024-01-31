@@ -10,6 +10,8 @@ import { UserPage } from 'types';
 export class UserListComponent implements OnInit {
   page: UserPage = { content: [], page: 0, size: 3, totalPages: 0 };
 
+  fetchingData = false;
+
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
@@ -17,8 +19,10 @@ export class UserListComponent implements OnInit {
   }
 
   loadData(pageNumber: number = 0) {
+    this.fetchingData = true;
     this.userService.loadUsers(pageNumber).subscribe((responseBody) => {
       this.page = responseBody as UserPage;
+      this.fetchingData = false;
     });
   }
 
