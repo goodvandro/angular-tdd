@@ -8,6 +8,7 @@ import {
 } from '@angular/common/http/testing';
 import { getPage } from './tset-helper';
 import { RouterTestingModule } from '@angular/router/testing';
+import { UserListItemComponent } from '../user-list-item/user-list-item.component';
 
 const parsePageParams = (request: TestRequest) => {
   let size = Number.parseInt(request.request.params.get('size')!);
@@ -29,7 +30,7 @@ describe('UserListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UserListComponent],
+      declarations: [UserListComponent, UserListItemComponent],
       imports: [HttpClientTestingModule, RouterTestingModule],
     }).compileComponents();
   });

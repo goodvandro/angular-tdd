@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { render, screen, waitFor } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { getPage } from './tset-helper';
+import { UserListItemComponent } from '../user-list-item/user-list-item.component';
 
 const server = setupServer(
   rest.get('/api/1.0/users', (req, res, ctx) => {
@@ -26,6 +27,7 @@ afterAll(() => server.close());
 
 const setup = async () => {
   await render(UserListComponent, {
+    declarations: [UserListItemComponent],
     imports: [HttpClientModule],
   });
 };

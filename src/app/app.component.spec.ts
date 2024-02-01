@@ -21,6 +21,7 @@ import { ActivateComponent } from './activate/activate.component';
 import { UserComponent } from './user/user.component';
 import { UserListComponent } from './home/user-list/user-list.component';
 import { Location } from '@angular/common';
+import { UserListItemComponent } from './home/user-list-item/user-list-item.component';
 
 describe('AppComponent', () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -42,6 +43,7 @@ describe('AppComponent', () => {
         LoginComponent,
         ActivateComponent,
         UserListComponent,
+        UserListItemComponent,
       ],
       imports: [
         RouterTestingModule.withRoutes(routes),
