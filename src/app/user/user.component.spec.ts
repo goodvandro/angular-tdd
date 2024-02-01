@@ -9,7 +9,7 @@ import { Observable, Subscriber } from 'rxjs';
 
 import { AlertComponent } from '../shared/alert/alert.component';
 import { UserComponent } from './user.component';
-import { ProfileCardComponent } from '../home/profile-card/profile-card.component';
+import { ProfileCardComponent } from './profile-card/profile-card.component';
 
 type RouteParams = { id: string };
 
