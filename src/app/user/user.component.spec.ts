@@ -69,7 +69,7 @@ describe('UserComponent', () => {
     expect(alert?.textContent).toContain('User not found');
   });
 
-  it('displays spinner during activation request', () => {
+  it('displays spinner during get request', () => {
     subscriber.next({ id: '1' });
     const request = httpTestingController.expectOne('/api/1.0/users/1');
     fixture.detectChanges();
