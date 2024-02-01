@@ -16,14 +16,17 @@ export const routes: Routes = [
     component: SignUpComponent,
   },
   {
-    path: 'login', component: LoginComponent
+    path: 'login',
+    component: LoginComponent,
   },
   {
-    path: 'user/:id', component: UserComponent
+    path: 'user/:id',
+    component: UserComponent,
   },
   {
-    path: 'activate/:id', component: ActivateComponent
-  }
+    path: 'activate/:id',
+    component: ActivateComponent,
+  },
 ];
 
 @NgModule({
