@@ -9,7 +9,8 @@ import { User } from 'types';
   styles: [],
 })
 export class UserComponent implements OnInit {
-  user?: User;
+  status!: 'success' | 'fail' | 'inProgress';
+  user!: User;
 
   constructor(
     private route: ActivatedRoute,
@@ -18,14 +19,14 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      // this.activationStatus = 'inProgress';
+      this.status = 'inProgress';
       this.userService.getUserById(params['id']).subscribe({
         next: (data) => {
+          this.status = 'success';
           this.user = data as User;
-          // this.activationStatus = 'success';
         },
         error: () => {
-          // this.activationStatus = 'fail';
+          this.status = 'fail';
         },
       });
     });

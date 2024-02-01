@@ -56,26 +56,33 @@ describe('UserComponent', () => {
     expect(header?.textContent).toContain('user1');
   });
 
-  // it('displays activation failure message when token is invalid', () => {
-  //   subscriber.next({ id: '456' });
-  //   const request = httpTestingController.expectOne('/api/1.0/users/token/456');
-  //   request.flush({}, { status: 400, statusText: 'Bad Request' });
-  //   fixture.detectChanges();
-  //   const alert = fixture.nativeElement.querySelector('.alert');
-  //   expect(alert?.textContent).toContain('Activation failure');
-  // });
+  it('displays error message when not found user', () => {
+    subscriber.next({ id: '2' });
+    const request = httpTestingController.expectOne('/api/1.0/users/2');
+    request.flush(
+      { message: 'User not found' },
+      { status: 404, statusText: 'Not Found' }
+    );
+    fixture.detectChanges();
+    const alert = fixture.nativeElement.querySelector('.alert');
+    expect(alert?.textContent).toContain('User not found');
+  });
 
-  // it('displays spinner during activation request', () => {
-  //   subscriber.next({ id: '123' });
-  //   const request = httpTestingController.expectOne('/api/1.0/users/token/123');
-  //   fixture.detectChanges();
-  //   expect(
-  //     fixture.nativeElement.querySelector('span[role="status"]')
-  //   ).toBeTruthy();
-  //   request.flush({});
-  //   fixture.detectChanges();
-  //   expect(
-  //     fixture.nativeElement.querySelector('span[role="status"]')
-  //   ).toBeFalsy();
-  // });
+  it('displays spinner during activation request', () => {
+    subscriber.next({ id: '1' });
+    const request = httpTestingController.expectOne('/api/1.0/users/1');
+    fixture.detectChanges();
+    expect(
+      fixture.nativeElement.querySelector('span[role="status"]')
+    ).toBeTruthy();
+    request.flush({
+      id: 1,
+      username: 'user1',
+      email: 'user1@mail.com',
+    });
+    fixture.detectChanges();
+    expect(
+      fixture.nativeElement.querySelector('span[role="status"]')
+    ).toBeFalsy();
+  });
 });

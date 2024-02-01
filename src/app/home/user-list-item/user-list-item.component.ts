@@ -8,6 +8,7 @@ import { User } from 'types';
 })
 export class UserListItemComponent implements OnInit {
   @Input() user!: User;
+
   constructor() {}
 
   ngOnInit(): void {}
