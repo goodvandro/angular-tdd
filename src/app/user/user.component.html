@@ -1,6 +1,8 @@
 <div data-testid="user-page">
-  <app-profile-card></app-profile-card>
-  <h3 *ngIf="status === 'success'">{{ user.username }}</h3>
+  <app-profile-card
+    *ngIf="status === 'success'"
+    [user]="user"
+  ></app-profile-card>
 
   <app-alert *ngIf="status === 'fail'" type="danger">
     User not found

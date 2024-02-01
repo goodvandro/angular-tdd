@@ -9,6 +9,7 @@ import { Observable, Subscriber } from 'rxjs';
 
 import { AlertComponent } from '../shared/alert/alert.component';
 import { UserComponent } from './user.component';
+import { ProfileCardComponent } from '../home/profile-card/profile-card.component';
 
 type RouteParams = { id: string };
 
@@ -22,7 +23,7 @@ describe('UserComponent', () => {
   beforeEach(async () => {
     const observable = new Observable<RouteParams>((sub) => (subscriber = sub));
     await TestBed.configureTestingModule({
-      declarations: [UserComponent, AlertComponent],
+      declarations: [UserComponent, AlertComponent, ProfileCardComponent],
       imports: [HttpClientTestingModule],
       providers: [
         { provide: ActivatedRoute, useValue: { params: observable } },
