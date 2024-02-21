@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SharedModule } from './shared/shared.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRouterModule } from './router/app-router.module';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -33,6 +33,7 @@ import { ProfileCardComponent } from './user/profile-card/profile-card.component
     SharedModule,
     ReactiveFormsModule,
     AppRouterModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
