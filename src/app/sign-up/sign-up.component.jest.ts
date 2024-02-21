@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { render, screen, waitFor } from '@testing-library/angular';
 import { SignUpComponent } from './sign-up.component';
 import userEvent from '@testing-library/user-event';
