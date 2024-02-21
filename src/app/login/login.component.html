@@ -3,7 +3,7 @@
     <div class="card-header text-center">
       <h1>Login</h1>
     </div>
-    <form class="card-body">
+    <form class="card-body" (ngSubmit)="onClickLogin()">
       <div class="mb-3">
         <label for="email" class="form-label">E-mail</label>
         <input
@@ -23,8 +23,14 @@
           [(ngModel)]="password"
         />
       </div>
+      <app-alert *ngIf="error" type="danger">{{ error }}</app-alert>
       <div class="text-center">
-        <app-button [disabled]="isDisabled()"> Login </app-button>
+        <app-button
+          [disabled]="isDisabled() || apiProgress"
+          [apiProgress]="apiProgress"
+        >
+          Login
+        </app-button>
       </div>
     </form>
   </div>

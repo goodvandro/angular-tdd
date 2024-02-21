@@ -163,6 +163,7 @@ describe('SignUpComponent', () => {
       await setupForm();
       button?.click();
       fixture.detectChanges();
+      button?.click();
 
       httpTestingController.expectOne('/api/1.0/users');
       expect(button?.disabled).toBeTruthy();

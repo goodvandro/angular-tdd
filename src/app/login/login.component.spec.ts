@@ -109,5 +109,61 @@ describe('LoginComponent', () => {
       await setupForm();
       expect(button?.disabled).toBeFalsy();
     });
+
+    it('sends email and password to backend after clicking button', async () => {
+      await setupForm();
+      button?.click();
+
+      const req = httpTestingController.expectOne('/api/1.0/auth');
+      const requestBody = req.request.body;
+
+      expect(requestBody).toEqual({
+        password: 'P4ssword',
+        email: 'user1@mail.com',
+      });
+    });
+
+    it('disables button when there is an ongoing api call', async () => {
+      await setupForm();
+      button?.click();
+      fixture.detectChanges();
+      button?.click();
+
+      httpTestingController.expectOne('/api/1.0/auth');
+      expect(button?.disabled).toBeTruthy();
+    });
+
+    it('display spinner after clicking the submit', async () => {
+      await setupForm();
+      expect(loginPage.querySelector('span[role="status"]')).toBeFalsy();
+      button?.click();
+      fixture.detectChanges();
+      expect(loginPage.querySelector('span[role="status"]')).toBeTruthy();
+    });
+
+    it('displays error after submit failure', async () => {
+      await setupForm();
+      button?.click();
+      const req = httpTestingController.expectOne('/api/1.0/auth');
+      req.flush(
+        { message: 'Incorrect Credentials' },
+        { status: 401, statusText: 'Unauthorized' }
+      );
+      fixture.detectChanges();
+      const error = loginPage.querySelector(`.alert`);
+      expect(error?.textContent).toContain('Incorrect Credentials');
+    });
+
+    it('hides spinner after sign up request falis', async () => {
+      await setupForm();
+      button?.click();
+      const req = httpTestingController.expectOne('/api/1.0/auth');
+      req.flush(
+        { message: 'Incorrect Credentials' },
+        { status: 401, statusText: 'Unauthorized' }
+      );
+      fixture.detectChanges();
+      expect(loginPage.querySelector('span[role="status"]')).toBeFalsy();
+    });
   });
 });
