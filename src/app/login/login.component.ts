@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../core/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormControl } from '@angular/forms';
@@ -9,6 +9,9 @@ import { FormControl } from '@angular/forms';
   styles: [],
 })
 export class LoginComponent implements OnInit {
+  @ViewChild('emailInput') emailInput!: FormControl;
+  @ViewChild('passwordInput') passwordInput!: FormControl;
+
   email: string = '';
   password: string = '';
 
@@ -21,7 +24,12 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   isDisabled(): boolean {
-    return !this.email || !this.password;
+    return (
+      !this.email ||
+      !this.password ||
+      this.isInvalid(this.emailInput) ||
+      this.isInvalid(this.passwordInput)
+    );
   }
 
   onClickLogin() {

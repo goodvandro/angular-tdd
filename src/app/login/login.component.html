@@ -49,10 +49,7 @@
       </div>
       <app-alert *ngIf="error" type="danger">{{ error }}</app-alert>
       <div class="text-center">
-        <app-button
-          [disabled]="isDisabled() || apiProgress"
-          [apiProgress]="apiProgress"
-        >
+        <app-button [disabled]="isDisabled()" [apiProgress]="apiProgress">
           Login
         </app-button>
       </div>

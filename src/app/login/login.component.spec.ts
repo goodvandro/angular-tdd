@@ -79,7 +79,7 @@ describe('LoginComponent', () => {
     let httpTestingController: HttpTestingController;
     let loginPage: HTMLInputElement;
 
-    const setupForm = async () => {
+    const setupForm = async (email = 'user1@mail.com') => {
       httpTestingController = TestBed.inject(HttpTestingController);
 
       loginPage = fixture.nativeElement as HTMLInputElement;
@@ -93,7 +93,7 @@ describe('LoginComponent', () => {
         'input[id="password"]'
       ) as HTMLInputElement;
 
-      emailInput.value = 'user1@mail.com';
+      emailInput.value = email;
       emailInput.dispatchEvent(new Event('input'));
       emailInput.dispatchEvent(new Event('blur'));
 
@@ -108,6 +108,11 @@ describe('LoginComponent', () => {
     it('enables the button when all the fields have valid input', async () => {
       await setupForm();
       expect(button?.disabled).toBeFalsy();
+    });
+
+    it('does not enable the button when fields are invalid', async () => {
+      await setupForm('a');
+      expect(button?.disabled).toBeTruthy();
     });
 
     it('sends email and password to backend after clicking button', async () => {
