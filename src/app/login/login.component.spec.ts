@@ -166,4 +166,39 @@ describe('LoginComponent', () => {
       expect(loginPage.querySelector('span[role="status"]')).toBeFalsy();
     });
   });
+
+  describe('Validation', () => {
+    const testCases = [
+      { field: 'email', value: '', error: 'E-mail is required' },
+      // {
+      //   field: 'email',
+      //   value: 'wrong-format',
+      //   error: 'Invalid e-mail address',
+      // },
+      // { field: 'password', value: '', error: 'Password is required' },
+    ];
+
+    testCases.forEach(({ field, value, error }) => {
+      it(`displays ${error} when ${field} has '${value}'`, async () => {
+        await fixture.whenStable();
+        const loginPage = fixture.nativeElement as HTMLElement;
+        expect(
+          loginPage.querySelector(`div[data-testid="${field}-validation"]`)
+        ).toBeNull();
+
+        const input = loginPage.querySelector(
+          `input[id="${field}"]`
+        ) as HTMLInputElement;
+        input.value = value;
+        input.dispatchEvent(new Event('input'));
+        input.dispatchEvent(new Event('blur'));
+        fixture.detectChanges();
+
+        const validationElement = loginPage.querySelector(
+          `div[data-testid="${field}-validation"]`
+        );
+        expect(validationElement?.textContent).toContain(error);
+      });
+    });
+  });
 });

@@ -11,7 +11,17 @@
           class="form-control"
           name="email"
           [(ngModel)]="email"
+          required
+          #emailInput="ngModel"
+          [class.is-invalid]="isInvalid(emailInput.control)"
         />
+        <div
+          data-testid="email-validation"
+          class="invalid-feedback"
+          *ngIf="isInvalid(emailInput.control)"
+        >
+          <div *ngIf="emailInput.errors?.['required']">E-mail is required</div>
+        </div>
       </div>
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>

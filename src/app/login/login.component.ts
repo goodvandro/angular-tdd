@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../core/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -32,5 +33,10 @@ export class LoginComponent implements OnInit {
         this.apiProgress = false;
       },
     });
+  }
+
+  isInvalid(field: FormControl) {
+    const { invalid, dirty, touched } = field;
+    return invalid && (dirty || touched);
   }
 }
