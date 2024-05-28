@@ -175,7 +175,7 @@ describe('LoginComponent', () => {
         value: 'wrong-format',
         error: 'Invalid e-mail address',
       },
-      // { field: 'password', value: '', error: 'Password is required' },
+      { field: 'password', value: '', error: 'Password is required' },
     ];
 
     testCases.forEach(({ field, value, error }) => {

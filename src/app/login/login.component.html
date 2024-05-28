@@ -33,7 +33,19 @@
           type="password"
           name="password"
           [(ngModel)]="password"
+          required
+          #passwordInput="ngModel"
+          [class.is-invalid]="isInvalid(passwordInput.control)"
         />
+        <div
+          data-testid="password-validation"
+          class="invalid-feedback"
+          *ngIf="isInvalid(passwordInput.control)"
+        >
+          <div *ngIf="passwordInput.errors?.['required']">
+            Password is required
+          </div>
+        </div>
       </div>
       <app-alert *ngIf="error" type="danger">{{ error }}</app-alert>
       <div class="text-center">
