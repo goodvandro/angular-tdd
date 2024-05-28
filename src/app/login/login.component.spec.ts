@@ -170,11 +170,11 @@ describe('LoginComponent', () => {
   describe('Validation', () => {
     const testCases = [
       { field: 'email', value: '', error: 'E-mail is required' },
-      // {
-      //   field: 'email',
-      //   value: 'wrong-format',
-      //   error: 'Invalid e-mail address',
-      // },
+      {
+        field: 'email',
+        value: 'wrong-format',
+        error: 'Invalid e-mail address',
+      },
       // { field: 'password', value: '', error: 'Password is required' },
     ];
 

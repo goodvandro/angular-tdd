@@ -12,6 +12,7 @@
           name="email"
           [(ngModel)]="email"
           required
+          email
           #emailInput="ngModel"
           [class.is-invalid]="isInvalid(emailInput.control)"
         />
@@ -21,6 +22,7 @@
           *ngIf="isInvalid(emailInput.control)"
         >
           <div *ngIf="emailInput.errors?.['required']">E-mail is required</div>
+          <div *ngIf="emailInput.errors?.['email']">Invalid e-mail address</div>
         </div>
       </div>
       <div class="mb-3">
