@@ -15,6 +15,7 @@
           email
           #emailInput="ngModel"
           [class.is-invalid]="isInvalid(emailInput.control)"
+          (ngModelChange)="onChange()"
         />
         <div
           data-testid="email-validation"
@@ -36,6 +37,7 @@
           required
           #passwordInput="ngModel"
           [class.is-invalid]="isInvalid(passwordInput.control)"
+          (ngModelChange)="onChange()"
         />
         <div
           data-testid="password-validation"

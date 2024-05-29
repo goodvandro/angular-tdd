@@ -78,6 +78,8 @@ describe('LoginComponent', () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let httpTestingController: HttpTestingController;
     let loginPage: HTMLInputElement;
+    let emailInput: HTMLInputElement;
+    let passwordInput: HTMLInputElement;
 
     const setupForm = async (email = 'user1@mail.com') => {
       httpTestingController = TestBed.inject(HttpTestingController);
@@ -86,10 +88,10 @@ describe('LoginComponent', () => {
 
       await fixture.whenStable();
 
-      const emailInput = loginPage.querySelector(
+      emailInput = loginPage.querySelector(
         'input[id="email"]'
       ) as HTMLInputElement;
-      const passwordInput = loginPage.querySelector(
+      passwordInput = loginPage.querySelector(
         'input[id="password"]'
       ) as HTMLInputElement;
 
@@ -159,7 +161,7 @@ describe('LoginComponent', () => {
       expect(error?.textContent).toContain('Incorrect Credentials');
     });
 
-    it('hides spinner after sign up request falis', async () => {
+    it('hides spinner after sign up request fails', async () => {
       await setupForm();
       button?.click();
       const req = httpTestingController.expectOne('/api/1.0/auth');
@@ -169,6 +171,36 @@ describe('LoginComponent', () => {
       );
       fixture.detectChanges();
       expect(loginPage.querySelector('span[role="status"]')).toBeFalsy();
+    });
+
+    it('clears error after email field is changed', async () => {
+      await setupForm();
+      button?.click();
+      const req = httpTestingController.expectOne('/api/1.0/auth');
+      req.flush(
+        { message: 'Incorrect Credentials' },
+        { status: 401, statusText: 'Unauthorized' }
+      );
+      fixture.detectChanges();
+      emailInput.value = 'valid@mail.com';
+      emailInput.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+      expect(loginPage.querySelector(`.alert`)).toBeFalsy();
+    });
+
+    it('clears error after password field is changed', async () => {
+      await setupForm();
+      button?.click();
+      const req = httpTestingController.expectOne('/api/1.0/auth');
+      req.flush(
+        { message: 'Incorrect Credentials' },
+        { status: 401, statusText: 'Unauthorized' }
+      );
+      fixture.detectChanges();
+      passwordInput.value = 'P4ssword2';
+      passwordInput.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+      expect(loginPage.querySelector(`.alert`)).toBeFalsy();
     });
   });
 
