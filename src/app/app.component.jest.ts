@@ -1,4 +1,8 @@
-import { render, screen } from '@testing-library/angular';
+import {
+  render,
+  screen,
+  waitForElementToBeRemoved,
+} from '@testing-library/angular';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -120,16 +124,12 @@ describe('Routing', () => {
 });
 
 describe('Login', () => {
-  let button: Element;
-  let emailInput: HTMLInputElement;
-  let passwordInput: HTMLInputElement;
+  let button: HTMLButtonElement;
 
-  const setupForm = async (values?: { email: string }) => {
+  const setupForm = async () => {
     await setup('/login');
-    emailInput = screen.getByLabelText('E-mail');
-    passwordInput = screen.getByLabelText('Password');
-    await userEvent.type(emailInput, values?.email || 'user1@mail.com');
-    await userEvent.type(passwordInput, 'P4ssword');
+    await userEvent.type(screen.getByLabelText('E-mail'), 'user1@mail.com');
+    await userEvent.type(screen.getByLabelText('Password'), 'P4ssword');
     button = screen.getByRole('button', { name: 'Login' });
   };
 
@@ -138,5 +138,13 @@ describe('Login', () => {
     await userEvent.click(button);
     const homePage = await screen.findByTestId('home-page');
     expect(homePage).toBeInTheDocument();
+  });
+  it('hides Login and Sign Up from nav bar after successful login', async () => {
+    await setupForm();
+    const loginLink = screen.getByRole('link', { name: 'Login' });
+    const signUpLink = screen.getByRole('link', { name: 'Sign Up' });
+    await userEvent.click(button);
+    await waitForElementToBeRemoved(loginLink);
+    expect(signUpLink).not.toBeInTheDocument();
   });
 });

@@ -161,8 +161,7 @@ describe('AppComponent', () => {
   });
 
   describe('Login', () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let button: any;
+    let button: HTMLButtonElement;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let httpTestingController: HttpTestingController;
     let loginPage: HTMLInputElement;
@@ -195,7 +194,7 @@ describe('AppComponent', () => {
 
       fixture.detectChanges();
 
-      button = loginPage.querySelector('button');
+      button = loginPage.querySelector('button') as HTMLButtonElement;
       button.click();
       const request = httpTestingController.expectOne(() => true);
       request.flush({
