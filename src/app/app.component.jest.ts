@@ -19,6 +19,7 @@ import { setupServer } from 'msw/node';
 import { rest } from 'msw';
 import { UserListComponent } from './home/user-list/user-list.component';
 import { UserListItemComponent } from './home/user-list-item/user-list-item.component';
+import { ProfileCardComponent } from './user/profile-card/profile-card.component';
 
 const server = setupServer(
   rest.post('/api/1.0/users/token/:token', (req, res, ctx) => {
@@ -65,6 +66,7 @@ const setup = async (path: string) => {
       ActivateComponent,
       UserListComponent,
       UserListItemComponent,
+      ProfileCardComponent,
     ],
     imports: [HttpClientModule, SharedModule, ReactiveFormsModule, FormsModule],
     routes: routes,
@@ -146,5 +148,27 @@ describe('Login', () => {
     await userEvent.click(button);
     await waitForElementToBeRemoved(loginLink);
     expect(signUpLink).not.toBeInTheDocument();
+  });
+  it('displays My Profile link on nav bar after successful login', async () => {
+    await setupForm();
+    expect(
+      screen.queryByRole('link', { name: 'My Profile' })
+    ).not.toBeInTheDocument();
+    await userEvent.click(button);
+    const myProfileLink = await screen.findByRole('link', {
+      name: 'My Profile',
+    });
+    expect(myProfileLink).toBeInTheDocument();
+  });
+  it('displays User Page with logged in user id in url after clicking My Profile link on navbar', async () => {
+    await setupForm();
+    await userEvent.click(button);
+    const myProfileLink = await screen.findByRole('link', {
+      name: 'My Profile',
+    });
+    await userEvent.click(myProfileLink);
+    await screen.findByTestId('user-page');
+    const header = await screen.findByRole('heading', { name: 'user1' });
+    expect(header).toBeInTheDocument();
   });
 });
