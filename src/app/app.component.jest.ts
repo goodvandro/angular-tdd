@@ -120,7 +120,7 @@ describe('Routing', () => {
 });
 
 describe('Login', () => {
-  let button: any;
+  let button: Element;
   let emailInput: HTMLInputElement;
   let passwordInput: HTMLInputElement;
 
