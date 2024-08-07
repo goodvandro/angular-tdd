@@ -32,4 +32,8 @@ export class UserService {
   authenticate(email: string, password: string) {
     return this.httpClient.post('/api/1.0/auth', { email, password });
   }
+
+  logout() {
+    return this.httpClient.post('/api/1.0/logout', {});
+  }
 }

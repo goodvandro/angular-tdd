@@ -29,6 +29,14 @@
       >
         My Profile
       </a>
+      <span
+        *ngIf="authenticationService.loggedInUser.isLoggedIn"
+        class="nav-link"
+        title="Logout"
+        (click)="logout()"
+      >
+        Logout
+      </span>
     </ul>
   </div>
 </nav>
