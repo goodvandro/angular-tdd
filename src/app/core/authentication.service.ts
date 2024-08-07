@@ -12,12 +12,20 @@ export class AuthenticationService {
     isLoggedIn: false,
   };
 
-  constructor() {}
+  constructor() {
+    const storageData = localStorage.getItem('auth');
+    if (storageData) {
+      try {
+        this.loggedInUser = JSON.parse(storageData) as LoggedInUser;
+      } catch (err) {}
+    }
+  }
 
   setLoggedInUser(user: User) {
     this.loggedInUser = {
       ...user,
       isLoggedIn: true,
     };
+    localStorage.setItem('auth', JSON.stringify(this.loggedInUser));
   }
 }
